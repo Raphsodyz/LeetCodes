@@ -1,0 +1,48 @@
+name: LeetCode Sync
+
+on:
+  # Run automatically every day at 9am UTC
+  #schedule:
+    #- cron: "0 9 * * *"
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (preview only, no commits)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  sync:
+    name: Sync LeetCode Solutions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r LeetCodes.Sync/requirements.txt
+
+      - name: Run sync agent
+        working-directory: LeetCodes.Sync
+        env:
+          LEETCODE_SESSION: ${{ secrets.LEETCODE_SESSION }}
+          LEETCODE_CSRF: ${{ secrets.LEETCODE_CSRF }}
+          LEETCODE_USERNAME: ${{ secrets.LEETCODE_USERNAME }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_REPO_OWNER: Raphsodyz
+          GH_REPO_NAME: LeetCodes
+          GH_BRANCH: main
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'true' }}
+        run: python agent.py
