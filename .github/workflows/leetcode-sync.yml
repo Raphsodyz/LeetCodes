@@ -44,5 +44,5 @@ jobs:
           GH_REPO_OWNER: Raphsodyz
           GH_REPO_NAME: LeetCodes
           GH_BRANCH: main
-          DRY_RUN: ${{ github.event.inputs.dry_run || 'true' }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
         run: python agent.py
