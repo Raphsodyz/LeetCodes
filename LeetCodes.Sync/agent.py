@@ -89,7 +89,7 @@ def main():
 
         try:
             print(f"⬇️  Fetching submission for: {problem['title']}")
-            code, question_id, title, difficulty = fetch_submission_code(slug)
+            code, question_id, title, difficulty = fetch_submission_code(slug, problem["id"])
 
             # Format into the project's .cs structure
             file_content = format_solution_file(

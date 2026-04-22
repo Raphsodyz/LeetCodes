@@ -68,22 +68,21 @@ def fetch_accepted_problems() -> list[dict]:
     return csharp_problems
 
 
-def fetch_submission_code(title_slug: str) -> tuple[str, str]:
+def fetch_submission_code(title_slug: str, submission_id: str) -> tuple[str, str, str, str]:
     """
-    Fetches the latest accepted C# submission code and the problem description
-    for a given problem slug.
-    Returns (code: str, description: str, question_number: str)
+    Fetches the accepted C# submission code and problem metadata.
+    Uses the submission ID already returned by recentAcSubmissionList (step 1),
+    then calls submissionDetails to get the actual code.
+    Returns (code, question_id, title, difficulty)
     """
 
-    # 1. Get question detail (description + number)
+    # 1. Get question metadata (number, difficulty) via questionDetail
     detail_query = """
     query questionDetail($titleSlug: String!) {
       question(titleSlug: $titleSlug) {
         questionFrontendId
         title
-        content
         difficulty
-        exampleTestcases
       }
     }
     """
@@ -99,51 +98,35 @@ def fetch_submission_code(title_slug: str) -> tuple[str, str]:
     title = question_data.get("title", title_slug)
     difficulty = question_data.get("difficulty", "")
 
-    time.sleep(0.5)  # polite rate limiting
+    time.sleep(0.5)  # polite rate limiting between requests
 
-    # 2. Get latest accepted C# submission code
-    submissions_query = """
-    query submissions($offset: Int!, $limit: Int!, $lastKey: String, $questionSlug: String!) {
-      submissionList(
-        offset: $offset
-        limit: $limit
-        lastKey: $lastKey
-        questionSlug: $questionSlug
-      ) {
-        submissions {
-          id
-          lang
-          statusDisplay
-          code
-          timestamp
+    # 2. Fetch the actual submission code using the submission ID
+    # submissionDetails is the correct endpoint — submissionList requires a paid plan
+    details_query = """
+    query submissionDetails($submissionId: Int!) {
+      submissionDetails(submissionId: $submissionId) {
+        code
+        lang {
+          name
         }
+        statusCode
       }
     }
     """
     resp = requests.post(
         GRAPHQL_URL,
         json={
-            "query": submissions_query,
-            "variables": {
-                "offset": 0,
-                "limit": 20,
-                "lastKey": None,
-                "questionSlug": title_slug,
-            },
+            "query": details_query,
+            "variables": {"submissionId": int(submission_id)},
         },
         headers=_get_headers(),
         timeout=15,
     )
     resp.raise_for_status()
-    all_subs = resp.json().get("data", {}).get("submissionList", {}).get("submissions", [])
 
-    code = None
-    for sub in all_subs:
-        if sub["lang"] == "csharp" and sub["statusDisplay"] == "Accepted":
-            code = sub["code"]
-            break
+    details = resp.json().get("data", {}).get("submissionDetails")
+    if not details or not details.get("code"):
+        raise ValueError(f"Could not fetch submission code for ID {submission_id} ({title_slug})")
 
-    if not code:
-        raise ValueError(f"No accepted C# submission found for {title_slug}")
-
+    code = details["code"]
     return code, question_id, title, difficulty
