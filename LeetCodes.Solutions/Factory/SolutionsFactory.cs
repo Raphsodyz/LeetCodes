@@ -12,7 +12,6 @@ namespace LeetCodes.Solutions.Factory
                 nameof(LongestSubstringWithoutRepeatingCharacters) => new LongestSubstringWithoutRepeatingCharacters(),
                 nameof(ReverseLettersThenSpecialCharactersInAString) => new ReverseLettersThenSpecialCharactersInAString(),
                 nameof(StringToInteger) => new StringToInteger(),
-                nameof(MaxNumberOfKSumPairs) => new MaxNumberOfKSumPairs(),
                 nameof(InvertBinaryTree) => new InvertBinaryTree(),
                 nameof(MinimumCommonValue) => new MinimumCommonValue(),
                 nameof(BackspaceStringCompare) => new BackspaceStringCompare(),

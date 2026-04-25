@@ -13,10 +13,10 @@ namespace LeetCodes.Solutions.Problems
             */
 
             // TODO: Add your test call here, e.g.:
-            // Console.WriteLine(YourMethod(input));
+            Console.WriteLine(IsSubsequenceSolution("abc", "axcbdfc"));
         }
 
-        public bool IsSubsequence(string s, string t) {
+        public bool IsSubsequenceSolution(string s, string t) {
             int left = 0;
             int right = t.Length - 1;
             Queue<char> sValues = new(s);
