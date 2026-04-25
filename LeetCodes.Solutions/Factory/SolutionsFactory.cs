@@ -18,6 +18,8 @@ namespace LeetCodes.Solutions.Factory
                 nameof(BackspaceStringCompare) => new BackspaceStringCompare(),
                 nameof(LexicographicallySmallestPalindrome) => new LexicographicallySmallestPalindrome(),
                 nameof(MaxNumberOfKsumPairs) => new MaxNumberOfKsumPairs(),
+                nameof(IsSubsequence) => new IsSubsequence(),
+                nameof(LargestPositiveIntegerThatExistsWithItsNegative) => new LargestPositiveIntegerThatExistsWithItsNegative(),
                 _ => throw new ArgumentException("Invalid problem name.")
             };
         }
