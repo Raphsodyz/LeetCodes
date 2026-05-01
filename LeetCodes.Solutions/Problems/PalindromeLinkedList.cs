@@ -1,4 +1,5 @@
 using LeetCodes.Solutions.Contract;
+using static LeetCodes.Solutions.Problems.MiddleOfTheLinkedList;
 
 namespace LeetCodes.Solutions.Problems
 {

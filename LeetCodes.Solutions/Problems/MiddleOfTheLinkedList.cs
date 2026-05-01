@@ -16,6 +16,15 @@ namespace LeetCodes.Solutions.Problems
             // Console.WriteLine(YourMethod(input));
         }
 
+        public class ListNode {
+            public int val;
+            public ListNode next;
+            public ListNode(int val=0, ListNode next=null) {
+                this.val = val;
+                this.next = next;
+            }
+        }
+
         public ListNode MiddleNode(ListNode head) {
             ListNode car = head;
             int sizeOfTheList = 1;

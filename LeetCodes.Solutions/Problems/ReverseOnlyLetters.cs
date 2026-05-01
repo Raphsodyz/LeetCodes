@@ -16,7 +16,7 @@ namespace LeetCodes.Solutions.Problems
             // Console.WriteLine(YourMethod(input));
         }
 
-        public string ReverseOnlyLetters(string s) {
+        public string ReverseOnlyLettersSolution(string s) {
             int left = 0;
             int right = s.Length - 1;
             char[] result = new char[s.Length];

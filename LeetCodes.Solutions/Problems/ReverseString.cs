@@ -16,7 +16,7 @@ namespace LeetCodes.Solutions.Problems
             // Console.WriteLine(YourMethod(input));
         }
 
-        public void ReverseString(char[] s) {
+        public void ReverseStringSolution(char[] s) {
             int left = 0;
             int right = s.Length - 1;
 
