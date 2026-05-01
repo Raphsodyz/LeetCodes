@@ -19,6 +19,12 @@ namespace LeetCodes.Solutions.Factory
                 nameof(MaxNumberOfKsumPairs) => new MaxNumberOfKsumPairs(),
                 nameof(IsSubsequence) => new IsSubsequence(),
                 nameof(LargestPositiveIntegerThatExistsWithItsNegative) => new LargestPositiveIntegerThatExistsWithItsNegative(),
+                nameof(FindAllKdistantIndicesInAnArray) => new FindAllKdistantIndicesInAnArray(),
+                nameof(ReverseString) => new ReverseString(),
+                nameof(PalindromeLinkedList) => new PalindromeLinkedList(),
+                nameof(MiddleOfTheLinkedList) => new MiddleOfTheLinkedList(),
+                nameof(ReverseOnlyLetters) => new ReverseOnlyLetters(),
+                nameof(NumberOfPerfectPairs) => new NumberOfPerfectPairs(),
                 _ => throw new ArgumentException("Invalid problem name.")
             };
         }
