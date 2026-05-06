@@ -25,6 +25,9 @@ namespace LeetCodes.Solutions.Factory
                 nameof(MiddleOfTheLinkedList) => new MiddleOfTheLinkedList(),
                 nameof(ReverseOnlyLetters) => new ReverseOnlyLetters(),
                 nameof(NumberOfPerfectPairs) => new NumberOfPerfectPairs(),
+                nameof(MaximumStrongPairXorI) => new MaximumStrongPairXorI(),
+                nameof(ContainsDuplicateIi) => new ContainsDuplicateIi(),
+                nameof(RemoveDuplicatesFromSortedArray) => new RemoveDuplicatesFromSortedArray(),
                 _ => throw new ArgumentException("Invalid problem name.")
             };
         }
